@@ -1,7 +1,3 @@
-# dotfiles
-
-Me first local edit
-
-# Watch YouTube
-
-Local Development
+# NixOS configuration files
+Repository contains NixOS configuration files for personal use.
+Cannot be used in other people's computers as such.
