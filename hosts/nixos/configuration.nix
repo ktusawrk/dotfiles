@@ -128,6 +128,7 @@
      sticky       # Sticky notes
      chromium
      solaar       # Logitech MX keys configuration SW
+     vscode       # Visual Studio Code, unfree
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
