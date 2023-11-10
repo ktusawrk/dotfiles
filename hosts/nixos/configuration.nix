@@ -83,6 +83,10 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-12.2.3"
+  ];
+  
 
   nix = {
     settings = {
@@ -129,6 +133,7 @@
      chromium
      solaar       # Logitech MX keys configuration SW
      vscode       # Visual Studio Code, unfree
+     etcher       # GUI sw for making bootable drives from Linux images
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
