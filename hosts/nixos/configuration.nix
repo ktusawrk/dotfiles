@@ -129,11 +129,15 @@
      emacs     
      git
      slack
-     sticky       # Sticky notes
+     sticky              # Sticky notes
      chromium
-     solaar       # Logitech MX keys configuration SW
-     vscode       # Visual Studio Code, unfree
-     etcher       # GUI sw for making bootable drives from Linux images
+     solaar              # Logitech MX keys configuration SW
+     vscode              # Visual Studio Code, unfree
+     etcher              # GUI sw for making bootable drives from Linux images
+     unixtools.xxd       # xxd tool is needed in the Ghaf build signature verifications process
+     python3             # Python3 is needed in the Ghaf build signature verifications process
+     openssl             # Openssl is needed in the Ghaf build signature verifications process
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
