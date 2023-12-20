@@ -137,7 +137,7 @@
      unixtools.xxd       # xxd tool is needed in the Ghaf build signature verifications process
      python3             # Python3 is needed in the Ghaf build signature verifications process
      openssl             # Openssl is needed in the Ghaf build signature verifications process
-
+     virtualbox          # For running virtual machines, launch with VirtualBox
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
