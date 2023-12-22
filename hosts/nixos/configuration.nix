@@ -138,6 +138,7 @@
      python3             # Python3 is needed in the Ghaf build signature verifications process
      openssl             # Openssl is needed in the Ghaf build signature verifications process
      virtualbox          # For running virtual machines, launch with VirtualBox
+     ntfs3g              # Windows NT file system driver for external SSD drive compatibility
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
