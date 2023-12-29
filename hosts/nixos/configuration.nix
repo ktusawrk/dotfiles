@@ -49,6 +49,11 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # Enable VirtualBox. NOTE: must reboot after nixos-rebuild switch
+  # See also adding user to "vboxusers" extraGroups
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.guest.enable = true;  
+
   # Configure keymap in X11
   services.xserver = {
     layout = "fi";
@@ -114,7 +119,7 @@
   users.users.ktu = {
     isNormalUser = true;
     description = "Kai Tusa";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "vboxusers" ];
     packages = with pkgs; [
       firefox
       pinta         # simple paint
@@ -137,7 +142,7 @@
      unixtools.xxd       # xxd tool is needed in the Ghaf build signature verifications process
      python3             # Python3 is needed in the Ghaf build signature verifications process
      openssl             # Openssl is needed in the Ghaf build signature verifications process
-     virtualbox          # For running virtual machines, launch with VirtualBox
+#    virtualbox          # DON'T!! Adding virtualbox here makes it NOT work
      ntfs3g              # Windows NT file system driver for external SSD drive compatibility
   ];
 
