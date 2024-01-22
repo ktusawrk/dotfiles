@@ -144,6 +144,9 @@
      openssl             # Openssl is needed in the Ghaf build signature verifications process
 #    virtualbox          # DON'T!! Adding virtualbox here makes it NOT work
      ntfs3g              # Windows NT file system driver for external SSD drive compatibility
+     azure-cli           # Enable az command for Azure commands
+     terraform           # Infrastructure as code with Terraform. Notice the Business Source License.
+     opentofu            # Terraform compatible open source alternative
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
