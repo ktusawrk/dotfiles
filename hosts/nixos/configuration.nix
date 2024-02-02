@@ -107,7 +107,6 @@
       substituters = [
         "https://cache.vedenemo.dev"
         "https://cache.ssrcdevops.tii.ae"
-	"https://cache.nixos.org"
       ];
       # Avoid copying unecessary stuff over SSH
       builders-use-substitutes = true;
