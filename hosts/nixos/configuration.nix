@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -14,7 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "X1-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -44,6 +44,12 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+
+  # Prevent laptop from going to sleep when it is connected to power
+  services.logind = {
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
+  };
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -89,7 +95,7 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-12.2.3"
+    "electron-19.1.9"
   ];
   
 
@@ -99,14 +105,23 @@
         "nix-command"
         "flakes"
       ];
+      build-users-group = "nixbld";
+      trusted-users = [
+        "ktu"
+      ];
       # Subsituters
       trusted-public-keys = [
         "cache.vedenemo.dev:8NhplARANhClUSWJyLVk4WMyy1Wb4rhmWW2u8AejH9E="
         "cache.ssrcdevops.tii.ae:oOrzj9iCppf+me5/3sN/BxEkp5SaFkHfKTPPZ97xXQk="
+	"cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
       substituters = [
         "https://cache.vedenemo.dev"
         "https://cache.ssrcdevops.tii.ae"
+	"https://cache.nixos.org"
+      ];
+      builders = lib.mkForce [
+        "ssh://build3 x86_64-linux /root/.ssh/id_ed25519 8 1 kvm,bechmark,big-parallel,nixos-test"
       ];
       # Avoid copying unecessary stuff over SSH
       builders-use-substitutes = true;
@@ -117,7 +132,7 @@
   users.users.ktu = {
     isNormalUser = true;
     description = "Kai Tusa";
-    extraGroups = [ "networkmanager" "wheel" "vboxusers" ];
+    extraGroups = [ "networkmanager" "wheel" "vboxusers"];
     packages = with pkgs; [
       firefox
       pinta         # simple paint
@@ -127,23 +142,25 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      wget
      emacs     
      git
      slack
-     sticky              # Sticky notes
+     sticky                     # Sticky notes
      chromium
-     solaar              # Logitech MX keys configuration SW
-     vscode              # Visual Studio Code, unfree
-     etcher              # GUI sw for making bootable drives from Linux images
-     unixtools.xxd       # xxd tool is needed in the Ghaf build signature verifications process
-     python3             # Python3 is needed in the Ghaf build signature verifications process
-     openssl             # Openssl is needed in the Ghaf build signature verifications process
-#    virtualbox          # DON'T!! Adding virtualbox here makes it NOT work
-     ntfs3g              # Windows NT file system driver for external SSD drive compatibility
-     azure-cli           # Enable az command for Azure commands
-     terraform           # Infrastructure as code with Terraform
+     solaar                     # Logitech MX keys configuration SW
+     vscode                     # Visual Studio Code, unfree
+     unixtools.xxd              # xxd tool is needed in the Ghaf build signature verifications process
+     python3                    # Python3 is needed in the Ghaf build signature verifications process
+     openssl                    # Openssl is needed in the Ghaf build signature verifications process
+#    virtualbox                 # DON'T!! Adding virtualbox here makes it NOT work
+     ntfs3g                     # Windows NT file system driver for external SSD drive compatibility
+     azure-cli                  # Enable az command for Azure commands
+     terraform                  # Infrastructure as code with Terraform
+     openfortivpn               # Open source Fortinet compatible VPN client
+     openconnect                # VPN client
+     tree                       # Directory structure visualisation cli utility
+     xdiskusage                 # Disk usage visualization with GUI
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
