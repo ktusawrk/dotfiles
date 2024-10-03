@@ -161,6 +161,7 @@
      openconnect                # VPN client
      tree                       # Directory structure visualisation cli utility
      xdiskusage                 # Disk usage visualization with GUI
+     libreoffice                # Open source office suite for editing documents offline
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
