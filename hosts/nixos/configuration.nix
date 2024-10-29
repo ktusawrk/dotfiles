@@ -42,6 +42,19 @@
     LC_TIME = "fi_FI.UTF-8";
   };
 
+environment.etc."nix/nix.conf".text = lib.mkForce ''
+   # Your custom nix.conf content here
+   builders = @/etc/nix/machines
+   require-sigs = false
+   trusted-substituters = @/etc/nix/trusted-subst
+   extra-trusted-substituters = @/etc/nix/trusted-subst
+   # trusted-substituters = https://cache.nixos.org https://cache.vedenemo.dev https://ghaf-dev.cachix.org https://cache.ssrcdevops.tii.ae
+   extra-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.vedenemo.dev:8NhplARANhClUSWJyLVk4WMyy1Wb4rhmWW2u8AejH9E= ghaf-dev.cachix.org-1:S3M8x3no8LFQPBfHw1jl6nmP8A7cVWKntoMKN3IsEQY= cache.ssrcdevops.tii.ae:oOrzj9iCppf+me5/3sN/BxEkp5SaFkHfKTPPZ97xXQk=
+   build-users-group = nixbld
+   trusted-users = root tester ktu
+   experimental-features = nix-command flakes
+ '';
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -121,7 +134,7 @@
 	"https://cache.nixos.org"
       ];
       builders = lib.mkForce [
-        "ssh://build3 x86_64-linux /root/.ssh/id_ed25519 8 1 kvm,bechmark,big-parallel,nixos-test"
+        "ssh://builder.vedenemo.dev x86_64-linux /root/.ssh/id_ed25519 8 1 kvm,bechmark,big-parallel,nixos-test"
       ];
       # Avoid copying unecessary stuff over SSH
       builders-use-substitutes = true;
