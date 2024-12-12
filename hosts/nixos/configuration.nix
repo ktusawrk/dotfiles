@@ -26,6 +26,7 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Helsinki";
+  # time.timeZone = "Europe/Madrid";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -41,19 +42,6 @@
     LC_TELEPHONE = "fi_FI.UTF-8";
     LC_TIME = "fi_FI.UTF-8";
   };
-
-environment.etc."nix/nix.conf".text = lib.mkForce ''
-   # Your custom nix.conf content here
-   builders = @/etc/nix/machines
-   require-sigs = false
-   trusted-substituters = @/etc/nix/trusted-subst
-   extra-trusted-substituters = @/etc/nix/trusted-subst
-   # trusted-substituters = https://cache.nixos.org https://cache.vedenemo.dev https://ghaf-dev.cachix.org https://cache.ssrcdevops.tii.ae
-   extra-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.vedenemo.dev:8NhplARANhClUSWJyLVk4WMyy1Wb4rhmWW2u8AejH9E= ghaf-dev.cachix.org-1:S3M8x3no8LFQPBfHw1jl6nmP8A7cVWKntoMKN3IsEQY= cache.ssrcdevops.tii.ae:oOrzj9iCppf+me5/3sN/BxEkp5SaFkHfKTPPZ97xXQk=
-   build-users-group = nixbld
-   trusted-users = root tester ktu
-   experimental-features = nix-command flakes
- '';
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -86,21 +74,21 @@ environment.etc."nix/nix.conf".text = lib.mkForce ''
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+  # sound.enable = true;                // Disabled at 24.11 upgrade
+  # hardware.pulseaudio.enable = false; // Disabled at 24.11 upgrade
+  # security.rtkit.enable = true;       // Disabled at 24.11 upgrade
+  # services.pipewire = {               // Disabled at 24.11 upgrade
+  #  enable = true;                     // Disabled at 24.11 upgrade
+  #  alsa.enable = true;                // Disabled at 24.11 upgrade
+  #  alsa.support32Bit = true;          // Disabled at 24.11 upgrade
+  #  pulse.enable = true;               // Disabled at 24.11 upgrade
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
-  };
+  # };                                  // Disabled at 24.11 upgrade
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
@@ -121,20 +109,18 @@ environment.etc."nix/nix.conf".text = lib.mkForce ''
       build-users-group = "nixbld";
       trusted-users = [
         "ktu"
+	"root"
+	"tester"
       ];
       # Subsituters
       trusted-public-keys = [
-        "cache.vedenemo.dev:8NhplARANhClUSWJyLVk4WMyy1Wb4rhmWW2u8AejH9E="
-        "cache.ssrcdevops.tii.ae:oOrzj9iCppf+me5/3sN/BxEkp5SaFkHfKTPPZ97xXQk="
 	"cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
       substituters = [
-        "https://cache.vedenemo.dev"
-        "https://cache.ssrcdevops.tii.ae"
 	"https://cache.nixos.org"
       ];
       builders = lib.mkForce [
-        "ssh://builder.vedenemo.dev x86_64-linux /root/.ssh/id_ed25519 8 1 kvm,bechmark,big-parallel,nixos-test"
+        "ssh://hertzarm aarch64-linux /root/.ssh/id_ed25519 8 1 kvm,bechmark,big-parallel,nixos-test; ssh://builder.vedenemo.dev x86_64-linux /root/.ssh/id_ed25519 8 1 kvm,bechmark,big-parallel,nixos-test"
       ];
       # Avoid copying unecessary stuff over SSH
       builders-use-substitutes = true;
