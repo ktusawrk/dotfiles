@@ -14,7 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "X1-nixos"; # Define your hostname.
+  networking.hostName = "T14-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -161,6 +161,7 @@
      tree                       # Directory structure visualisation cli utility
      xdiskusage                 # Disk usage visualization with GUI
      libreoffice                # Open source office suite for editing documents offline
+     drawio                     # Draw diagrams
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -188,6 +189,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 
 }
