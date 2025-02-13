@@ -58,8 +58,8 @@
 
   # Enable VirtualBox. NOTE: must reboot after nixos-rebuild switch
   # See also adding user to "vboxusers" extraGroups
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.guest.enable = true;  
+  # virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.guest.enable = true;  
 
   # Configure keymap in X11
   services.xserver = {
