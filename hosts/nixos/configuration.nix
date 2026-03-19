@@ -178,7 +178,7 @@
      chromium
      solaar                     # Logitech MX keys configuration SW
      vscode                     # Visual Studio Code, unfree
-#    codex                      # This installs some old codex version
+     codex
      nodejs                     # nodejs enabled for installing the latest and greatest codex
      unixtools.xxd              # xxd tool is needed in the Ghaf build signature verifications process
      python3                    # Python3 is needed in the Ghaf build signature verifications process
